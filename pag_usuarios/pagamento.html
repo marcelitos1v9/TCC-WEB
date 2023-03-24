@@ -16,7 +16,7 @@
 
 <body class="bg-dark">
 
-    <div class="container mt-5 bg-light pb-3">
+    <div class="container mt-3 mb-3 bg-light pb-3">
         <div class="justify-content-center text-center ">
             <img src="../img/logo (2).png" style="width: 15rem;" class="card-img-top justify-content-center">
         </div>
@@ -32,53 +32,57 @@
                 <label for="email">E-mail</label>
                 <input type="email" class="form-control" id="email">
             </div>
-            <div class="form-group">
-                <label for="endereco">Endereço</label>
-                <input type="text" class="form-control" id="endereco">
-            </div>
-            <div class="form-group">
-                <label for="cidade">Cidade</label>
-                <input type="text" class="form-control" id="cidade">
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="estado">Estado</label>
-                    <select id="estado" class="form-control">
-                        <option selected>Escolha...</option>
-                        <option>AC</option>
-                        <option>AL</option>
-                        <option>AP</option>
-                        <option>AM</option>
-                        <option>BA</option>
-                        <option>CE</option>
-                        <option>DF</option>
-                        <option>ES</option>
-                        <option>GO</option>
-                        <option>MA</option>
-                        <option>MT</option>
-                        <option>MS</option>
-                        <option>MG</option>
-                        <option>PA</option>
-                        <option>PB</option>
-                        <option>PR</option>
-                        <option>PE</option>
-                        <option>PI</option>
-                        <option>RJ</option>
-                        <option>RN</option>
-                        <option>RS</option>
-                        <option>RO</option>
-                        <option>RR</option>
-                        <option>SC</option>
-                        <option>SP</option>
-                        <option>SE</option>
-                        <option>TO</option>
-                    </select>
+            
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="estado">Estado</label>
+                        <select class="form-control" id="estado" onchange="getCidades()">
+                            <option value="">Selecione um estado</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="cidade">Cidade:</label>
+                        <select class="form-control" id="cidade">
+                            <option value="">Selecione um estado primeiro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="endereco">Endereço</label>
+                    <input type="text" class="form-control" id="endereco">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="cep">CEP</label>
                     <input type="text" class="form-control" id="cep">
-                </div>
 
+                </div>
                 <hr>
                 <div>
                     <div class="form-group">
@@ -133,10 +137,16 @@
                 <div class="form-group" id="camposCartao" style="display:none">
                     <label for="nomeCartao">Nome do titular do cartão</label>
                     <input type="text" class="form-control">
-                    <label for="cartao">Número do Cartão</label>
-                    <input type="text" class="form-control" id="cartao">
-                    <label for="cvv">CVV</label>
-                    <input type="text" class="form-control" id="cvv">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label for="cartao">Número do Cartão</label>
+                            <input type="text" class="form-control" id="cartao">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="cvv">CVV</label>
+                            <input type="text" class="form-control" id="cvv">
+                        </div>
+                    </div>
                     <label for="parcelas">Parcelas</label>
                     <select id="parcelas" class="form-control">
                         <option selected>Escolha...</option>
@@ -159,7 +169,7 @@
                     <input type="text" class="form-control" id="banco">
                 </div>
                 <div class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-success">Confirmar compra</button>
+                    <button type="submit" class="btn btn-success">Confirmar Pedido</button>
                 </div>
         </form>
     </div>
@@ -174,6 +184,26 @@
         integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
         crossorigin="anonymous"></script>
     <script>
+        function getCidades() {
+            const estado = document.getElementById("estado").value;
+            const url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estado}/municipios`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(cidades => {
+                    const selectCidade = document.getElementById("cidade");
+                    selectCidade.innerHTML = "<option value=''>Selecione uma cidade</option>";
+                    cidades.forEach(cidade => {
+                        const option = document.createElement("option");
+                        option.value = cidade.nome;
+                        option.innerText = cidade.nome;
+                        selectCidade.appendChild(option);
+                    });
+
+
+                })
+                .catch(error => console.error(error));
+        }
         // Seleciona os campos relevantes
         var selectPagamento = document.getElementById("formaPagamento");
         var camposCartao = document.getElementById("camposCartao");
